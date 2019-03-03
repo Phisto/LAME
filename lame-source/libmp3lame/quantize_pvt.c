@@ -693,7 +693,8 @@ calc_xmin(lame_internal_flags const *gfc,
         
         width = cod_info->width[gsfb];
         for (b = 0; b < 3; b++) {
-            FLOAT   en0 = 0.0, xmin = tmpATH;
+            FLOAT   en0 = 0.0;
+            __unused FLOAT xmin = tmpATH;
             FLOAT   rh1, rh2, rh3;
 
             rh1 = tmpATH / width;

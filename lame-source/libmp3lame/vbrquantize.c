@@ -1045,7 +1045,7 @@ searchGlobalStepsizeMax(const algo_t * that, const int sfwork[SFBMAX],
     const int gain = cod_info->global_gain;
     int     curr = gain;
     int     gain_ok = 1024;
-    int     nbits = LARGE_BITS;
+    __unused int     nbits = LARGE_BITS;
     int     l = gain, r = 512;
 
     assert(gain >= 0);
@@ -1157,7 +1157,7 @@ outOfBitsStrategy(algo_t const* that, const int sfwork[SFBMAX], const int vbrsfm
     int     wrk[SFBMAX];
     int const dm = sfDepth(sfwork);
     int const p = that->cod_info->global_gain;
-    int     nbits;
+    __unused int     nbits;
 
     /* PART 1 */
     {

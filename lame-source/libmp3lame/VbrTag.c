@@ -427,7 +427,7 @@ GetVbrTag(VBRTAGDATA * pTagData, const unsigned char *buf)
     }
 
     if (head_flags & TOC_FLAG) {
-        if (pTagData->toc != NULL) {
+        if (pTagData->toc != NULL) { // docs of toc say otherwise ...
             for (i = 0; i < NUMTOCENTRIES; i++)
                 pTagData->toc[i] = buf[i];
         }
@@ -902,7 +902,7 @@ lame_get_lametag_frame(lame_global_flags const *gfp, unsigned char *buffer, size
     lame_internal_flags *gfc;
     SessionConfig_t const *cfg;
     unsigned long stream_size;
-    unsigned int  nStreamIndex;
+    __unused unsigned int  nStreamIndex;
     uint8_t btToc[NUMTOCENTRIES];
 
     if (gfp == 0) {

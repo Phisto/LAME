@@ -288,8 +288,8 @@ quantize_xrpow(const FLOAT * xp, int *pi, FLOAT istep, gr_info const *const cod_
     int     j = 0;
     int     prev_data_use;
     int    *iData;
-    int     accumulate = 0;
-    int     accumulate01 = 0;
+    __unused int     accumulate = 0;
+    __unused int     accumulate01 = 0;
     int    *acc_iData;
     const FLOAT *acc_xp;
 

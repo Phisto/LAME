@@ -1249,7 +1249,7 @@ VBR_encode_granule(lame_internal_flags * gfc, gr_info * const cod_info, const FL
     gr_info bst_cod_info;
     FLOAT   bst_xrpow[576];
     int const Max_bits = max_bits;
-    int     real_bits = max_bits + 1;
+    __unused int     real_bits = max_bits + 1;
     int     this_bits = (max_bits + min_bits) / 2;
     int     dbits, over, found = 0;
     int const sfb21_extra = gfc->sv_qnt.sfb21_extra;
@@ -1731,7 +1731,8 @@ VBR_new_iteration_loop(lame_internal_flags * gfc, const FLOAT pe[2][2],
     }
     if (used_bits <= frameBits[eov->bitrate_index]) {
         /* update Reservoire status */
-        int     mean_bits, fullframebits;
+        int     mean_bits;
+        __unused int fullframebits;
         fullframebits = ResvFrameBegin(gfc, &mean_bits);
         assert(used_bits <= fullframebits);
         for (gr = 0; gr < cfg->mode_gr; gr++) {

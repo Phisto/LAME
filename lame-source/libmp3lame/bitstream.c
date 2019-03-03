@@ -866,7 +866,7 @@ flush_bitstream(lame_internal_flags * gfc)
     III_side_info_t *l3_side;
     int     nbytes;
     int     flushbits;
-    int     last_ptr = esv->h_ptr - 1; /* last header to add to bitstream */
+    __unused int     last_ptr = esv->h_ptr - 1; /* last header to add to bitstream */
     if (last_ptr == -1)
         last_ptr = MAX_HEADER_BUF - 1;
     l3_side = &gfc->l3_side;
