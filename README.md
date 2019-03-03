@@ -1,5 +1,5 @@
 [![Carthage Compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
-[![License](https://img.shields.io/github/license/phisto/Lame-ObjC.svg)](https://github.com/Phisto/LAME-ObjC)
+[![License](https://img.shields.io/github/license/phisto/Lame.svg)](https://github.com/Phisto/LAME)
 
 ## Overview
 
@@ -21,7 +21,7 @@ It is slightly tuned to address some XCode warnings and uses the project setting
 [Carthage](https://github.com/Carthage/Carthage) is a decentralized dependency manager that builds your dependencies and provides you with binary frameworks. To integrate LAME into your Xcode project using Carthage, specify it in your `Cartfile`:
 
 ```ogdl
-github "Phisto/LAME-ObjC" ~> 3.0
+github "Phisto/LAME" ~> 3.0
 ```
 
 
