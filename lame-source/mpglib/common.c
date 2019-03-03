@@ -226,7 +226,7 @@ decode_header(PMPSTR mp, struct frame *fr, unsigned long newhead)
 
     switch (fr->lay) {
     case 1:
-        fr->framesize = (long) tabsel_123[fr->lsf][0][fr->bitrate_index] * 12000;
+        fr->framesize = tabsel_123[fr->lsf][0][fr->bitrate_index] * 12000;
         fr->framesize /= freqs[fr->sampling_frequency];
         fr->framesize = ((fr->framesize + fr->padding) << 2) - 4;
         fr->down_sample = 0;
@@ -234,7 +234,7 @@ decode_header(PMPSTR mp, struct frame *fr, unsigned long newhead)
         break;
 
     case 2:
-        fr->framesize = (long) tabsel_123[fr->lsf][1][fr->bitrate_index] * 144000;
+        fr->framesize = tabsel_123[fr->lsf][1][fr->bitrate_index] * 144000;
         fr->framesize /= freqs[fr->sampling_frequency];
         fr->framesize += fr->padding - 4;
         fr->down_sample = 0;
@@ -264,7 +264,7 @@ decode_header(PMPSTR mp, struct frame *fr, unsigned long newhead)
         if (fr->bitrate_index == 0)
             fr->framesize = 0;
         else {
-            fr->framesize = (long) tabsel_123[fr->lsf][2][fr->bitrate_index] * 144000;
+            fr->framesize = tabsel_123[fr->lsf][2][fr->bitrate_index] * 144000;
             fr->framesize /= freqs[fr->sampling_frequency] << (fr->lsf);
             fr->framesize = fr->framesize + fr->padding - 4;
         }
@@ -303,7 +303,7 @@ getbits(PMPSTR mp, int number_of_bits)
         mp->wordpointer += (mp->bitindex >> 3);
         mp->bitindex &= 7;
     }
-    return rval;
+    return (unsigned int) rval;
 }
 
 unsigned int
@@ -324,7 +324,7 @@ getbits_fast(PMPSTR mp, int number_of_bits)
         mp->wordpointer += (mp->bitindex >> 3);
         mp->bitindex &= 7;
     }
-    return rval;
+    return (unsigned int) rval;
 }
 
 unsigned char

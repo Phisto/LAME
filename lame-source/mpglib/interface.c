@@ -159,7 +159,7 @@ read_buf_byte(PMPSTR mp)
 {
     unsigned int b;
 
-    int     pos;
+    long     pos;
 
 
     pos = mp->tail->pos;
@@ -208,7 +208,7 @@ copy_mp(PMPSTR mp, int size, unsigned char *ptr)
 
     while (len < size && mp->tail) {
         int     nlen;
-        int     blen = mp->tail->size - mp->tail->pos;
+        int     blen = (int) ( mp->tail->size - mp->tail->pos );
         if ((size - len) <= blen) {
             nlen = size - len;
         }
@@ -243,7 +243,8 @@ return value: number of bytes in VBR header, including syncword
 static int
 check_vbr_header(PMPSTR mp, int bytes)
 {
-    int     i, pos;
+    int     i;
+    long    pos;
     struct buf *buf = mp->tail;
     unsigned char xing[XING_HEADER_SIZE];
     VBRTAGDATA pTagData;
@@ -307,7 +308,7 @@ sync_buffer(PMPSTR mp, int free_match)
     if (!buf)
         return -1;
 
-    pos = buf->pos;
+    pos = (int) buf->pos;
     for (i = 0; i < mp->bsize; i++) {
         /* get 4 bytes */
 
@@ -316,7 +317,7 @@ sync_buffer(PMPSTR mp, int free_match)
         b[2] = b[3];
         while (pos >= buf->size) {
             buf = buf->next;
-            pos = buf->pos;
+            pos = (int) buf->pos;
             if (!buf) {
                 return -1;
                 /* not enough data to read 4 bytes */

@@ -167,7 +167,7 @@ decode1_headersB_clipchoice(PMPSTR pmp, unsigned char *buffer, int len,
     if (pmp->header_parsed || pmp->fsizeold > 0 || pmp->framesize > 0) {
         mp3data->header_parsed = 1;
         mp3data->stereo = pmp->fr.stereo;
-        mp3data->samplerate = freqs[pmp->fr.sampling_frequency];
+        mp3data->samplerate = (int) freqs[pmp->fr.sampling_frequency];
         mp3data->mode = pmp->fr.mode;
         mp3data->mode_ext = pmp->fr.mode_ext;
         mp3data->framesize = smpls[pmp->fr.lsf][pmp->fr.lay];
@@ -356,7 +356,7 @@ hip_decode1_unclipped(hip_t hip, unsigned char *buffer, size_t len, sample_t pcm
     int     enc_delay, enc_padding;
 
     if (hip) {
-        return decode1_headersB_clipchoice(hip, buffer, len, (char *) pcm_l, (char *) pcm_r, &mp3data,
+        return decode1_headersB_clipchoice(hip, buffer, (int) len, (char *) pcm_l, (char *) pcm_r, &mp3data,
                                            &enc_delay, &enc_padding, out, OUTSIZE_UNCLIPPED,
                                            sizeof(FLOAT), decodeMP3_unclipped);
     }
@@ -433,7 +433,7 @@ hip_decode1_headersB(hip_t hip, unsigned char *buffer,
 {
     static char out[OUTSIZE_CLIPPED];
     if (hip) {
-        return decode1_headersB_clipchoice(hip, buffer, len, (char *) pcm_l, (char *) pcm_r, mp3data,
+        return decode1_headersB_clipchoice(hip, buffer, (int) len, (char *) pcm_l, (char *) pcm_r, mp3data,
                                            enc_delay, enc_padding, out, OUTSIZE_CLIPPED,
                                            sizeof(short), decodeMP3);
     }

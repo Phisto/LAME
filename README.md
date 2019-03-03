@@ -5,7 +5,7 @@
 
 This is a mirror of the LAME 3.99.5 source and will build a dynamic framework for macOS.
 
-It is slightliy tuned to address some XCode warnings and uses the project settings recommended by XCode.
+It is slightly tuned to address some XCode warnings and uses the project settings recommended by XCode.
 
 
 ## Requirements

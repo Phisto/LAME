@@ -385,7 +385,7 @@ AnalyzeSamples(replaygain_t * rgData, const Float_t * left_samples, const Float_
             rgData->lsum += fsqr(*curleft++);
             rgData->rsum += fsqr(*curright++);
         }
-        i = cursamples / 8;
+        i = (int) cursamples / 8;
         while (i--) {
             rgData->lsum += fsqr(curleft[0])
                 + fsqr(curleft[1])

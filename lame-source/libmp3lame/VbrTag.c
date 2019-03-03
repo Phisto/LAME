@@ -985,7 +985,7 @@ lame_get_lametag_frame(lame_global_flags const *gfp, unsigned char *buffer, size
 
     /* Put total audio stream size, including Xing/LAME Header */
     stream_size = gfc->VBR_seek_table.nBytesWritten + gfc->VBR_seek_table.TotalFrameSize;
-    CreateI4(&buffer[nStreamIndex], stream_size);
+    CreateI4(&buffer[nStreamIndex], (uint32_t) stream_size);
     nStreamIndex += 4;
 
     /* Put TOC */
@@ -1058,7 +1058,7 @@ PutVbrTag(lame_global_flags const *gfp, FILE * fpStream)
     id3v2TagSize = skipId3v2(fpStream);
 
     if (id3v2TagSize < 0) {
-        return id3v2TagSize;
+        return (int) id3v2TagSize;
     }
 
     /*Seek to the beginning of the stream */

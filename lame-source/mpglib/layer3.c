@@ -720,7 +720,7 @@ III_dequantize_sample(PMPSTR mp, real xr[SBLIMIT][SSLIMIT], int *scf,
        part2remain, gr_infos->part2_3_length, part2bits); */
 
     {
-        int     i;
+        long     i;
 
         for (i = (&xr[SBLIMIT][0] - xrpnt) >> 1; i > 0; i--) {
             *xrpnt++ = 0.0;
@@ -953,7 +953,8 @@ III_dequantize_sample(PMPSTR mp, real xr[SBLIMIT][SSLIMIT], int *scf,
          * decoding with 'long' BandIndex table (block_type != 2)
          */
         int const *pretab = (int const *) (gr_infos->preflag ? pretab1 : pretab2);
-        int     i, max = -1;
+        int     max = -1;
+        long    i;
         int     cb = 0;
         int    *m = map[sfreq][2];
         real    v = 0.0;
@@ -1710,13 +1711,13 @@ decode_layer3_frame(PMPSTR mp, unsigned char *pcm_sample, int *pcm_point,
 
             if (mp->pinfo != NULL) {
                 int     i;
-                mp->pinfo->sfbits[gr][0] = part2bits;
+                mp->pinfo->sfbits[gr][0] = (int) part2bits;
                 for (i = 0; i < 39; i++)
                     mp->pinfo->sfb_s[gr][0][i] = scalefacs[0][i];
             }
 
             /* lame_report_fnc(mp->report_err, "calling III dequantize sample 1 gr_infos->part2_3_length %d\n", gr_infos->part2_3_length); */
-            if (III_dequantize_sample(mp, hybridIn[0], scalefacs[0], gr_infos, sfreq, part2bits))
+            if (III_dequantize_sample(mp, hybridIn[0], scalefacs[0], gr_infos, sfreq, (int) part2bits))
                 return clip;
         }
         if (stereo == 2) {
@@ -1729,13 +1730,13 @@ decode_layer3_frame(PMPSTR mp, unsigned char *pcm_sample, int *pcm_point,
             }
             if (mp->pinfo != NULL) {
                 int     i;
-                mp->pinfo->sfbits[gr][1] = part2bits;
+                mp->pinfo->sfbits[gr][1] = (int) part2bits;
                 for (i = 0; i < 39; i++)
                     mp->pinfo->sfb_s[gr][1][i] = scalefacs[1][i];
             }
 
             /* lame_report_fnc(mp->report_err, "calling III dequantize sample 2  gr_infos->part2_3_length %d\n", gr_infos->part2_3_length); */
-            if (III_dequantize_sample(mp, hybridIn[1], scalefacs[1], gr_infos, sfreq, part2bits))
+            if (III_dequantize_sample(mp, hybridIn[1], scalefacs[1], gr_infos, sfreq, (int)part2bits))
                 return clip;
 
             if (ms_stereo) {
@@ -1784,7 +1785,7 @@ decode_layer3_frame(PMPSTR mp, unsigned char *pcm_sample, int *pcm_point,
             float   ifqstep;
 
             mp->pinfo->bitrate = tabsel_123[fr->lsf][fr->lay - 1][fr->bitrate_index];
-            mp->pinfo->sampfreq = freqs[sfreq];
+            mp->pinfo->sampfreq = (int) freqs[sfreq];
             mp->pinfo->emph = fr->emphasis;
             mp->pinfo->crc = fr->error_protection;
             mp->pinfo->padding = fr->padding;

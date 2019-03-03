@@ -2145,7 +2145,7 @@ lame_get_totalframes(const lame_global_flags * gfp)
             /* check to see if we underestimated totalframes */
             /*    if (totalframes < gfp->frameNum) */
             /*        totalframes = gfp->frameNum; */
-            return pcm_samples_to_encode / pcm_samples_per_frame;
+            return (int)(pcm_samples_to_encode / pcm_samples_per_frame);
         }
     }
     return 0;
