@@ -153,6 +153,9 @@
 		F44A328D1D8F50BB00947705 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F44A32961D8F55F600947705 /* config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = config.h; path = "lame-source/config.h"; sourceTree = "<group>"; };
 		F44A32981D8F560400947705 /* lame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = lame.h; path = "lame-source/lame.h"; sourceTree = "<group>"; };
+		F4D2301A222BFC9D00F8EC60 /* LICENSE.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE.txt; sourceTree = "<group>"; };
+		F4D2301B222BFC9D00F8EC60 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		F4D2301C222BFC9D00F8EC60 /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -181,6 +184,9 @@
 			children = (
 				08FB77ACFE841707C02AAC07 /* Lame */,
 				F44A328A1D8F50BB00947705 /* LameUnitTest */,
+				F4D2301B222BFC9D00F8EC60 /* README.md */,
+				F4D2301A222BFC9D00F8EC60 /* LICENSE.txt */,
+				F4D2301C222BFC9D00F8EC60 /* .gitignore */,
 				034768DDFF38A45A11DB9C8B /* Products */,
 			);
 			name = LAME;
