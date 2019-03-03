@@ -33,7 +33,7 @@ You only need to build and add the LAME framework (Lame.framework) to your proje
 
 ## Usage
 
-I really dont know a source for how to use the lame framework, but you can check out my [CoreConverter](https://github.com/Phisto/CoreAudioConverter) project to see how i use it.
+I really dont know a source for how to use the lame framework, but you can check out my [CoreAudioConverter](https://github.com/Phisto/CoreAudioConverter) project to see how i use it.
 
 
 ## License
