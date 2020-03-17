@@ -2158,7 +2158,7 @@ lame_get_totalframes(const lame_global_flags * gfp)
                 pcm_samples_to_encode = ceil(resampled_samples_to_encode);
             }
             else {
-                frames = pcm_samples_to_encode / pcm_samples_per_frame;
+                frames = (int) pcm_samples_to_encode / pcm_samples_per_frame;
                 pcm_samples_to_encode -= frames * pcm_samples_per_frame;
             }
             pcm_samples_to_encode += 576ul;
@@ -2324,7 +2324,7 @@ calc_maximum_input_samples_for_buffer_size(lame_internal_flags const* gfc, size_
     {
         int const pad = 1;
         int const bpf = ((cfg->version + 1) * 72000 * kbps / cfg->samplerate_out + pad);
-        frames_per_buffer = buffer_size / bpf;
+        frames_per_buffer = (int) buffer_size / bpf;
     }
     {
         double ratio = (double) cfg->samplerate_in / cfg->samplerate_out;
