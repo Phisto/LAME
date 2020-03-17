@@ -22,7 +22,7 @@
  * Boston, MA 02111-1307, USA.
  */
 
-/* $Id: quantize.c,v 1.216.2.1 2012/01/08 23:49:58 robert Exp $ */
+/* $Id: quantize.c,v 1.219 2017/08/02 19:48:05 robert Exp $ */
 
 #ifdef HAVE_CONFIG_H
 # include <config.h>
@@ -1249,7 +1249,7 @@ VBR_encode_granule(lame_internal_flags * gfc, gr_info * const cod_info, const FL
     gr_info bst_cod_info;
     FLOAT   bst_xrpow[576];
     int const Max_bits = max_bits;
-    __unused int     real_bits = max_bits + 1;
+    int     real_bits = max_bits + 1;
     int     this_bits = (max_bits + min_bits) / 2;
     int     dbits, over, found = 0;
     int const sfb21_extra = gfc->sv_qnt.sfb21_extra;
@@ -1731,8 +1731,7 @@ VBR_new_iteration_loop(lame_internal_flags * gfc, const FLOAT pe[2][2],
     }
     if (used_bits <= frameBits[eov->bitrate_index]) {
         /* update Reservoire status */
-        int     mean_bits;
-        __unused int fullframebits;
+        int     mean_bits, fullframebits;
         fullframebits = ResvFrameBegin(gfc, &mean_bits);
         assert(used_bits <= fullframebits);
         for (gr = 0; gr < cfg->mode_gr; gr++) {

@@ -22,7 +22,7 @@
  * Boston, MA 02111-1307, USA.
  */
 
-/* $Id: quantize_pvt.c,v 1.169.2.2 2012/02/07 13:40:37 robert Exp $ */
+/* $Id: quantize_pvt.c,v 1.175 2017/09/06 15:07:30 robert Exp $ */
 #ifdef HAVE_CONFIG_H
 # include <config.h>
 #endif
@@ -167,6 +167,7 @@ const scalefac_struct sfBandIndex[9] = {
 };
 
 
+/* FIXME: move global variables in some struct */
 
 FLOAT   pow20[Q_MAX + Q_MAX2 + 1];
 FLOAT   ipow20[Q_MAX];
@@ -693,8 +694,7 @@ calc_xmin(lame_internal_flags const *gfc,
         
         width = cod_info->width[gsfb];
         for (b = 0; b < 3; b++) {
-            FLOAT   en0 = 0.0;
-            __unused FLOAT xmin = tmpATH;
+            FLOAT   en0 = 0.0, xmin = tmpATH;
             FLOAT   rh1, rh2, rh3;
 
             rh1 = tmpATH / width;

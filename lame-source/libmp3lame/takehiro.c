@@ -20,7 +20,7 @@
  * Boston, MA 02111-1307, USA.
  */
 
-/* $Id: takehiro.c,v 1.79 2011/05/07 16:05:17 rbrito Exp $ */
+/* $Id: takehiro.c,v 1.80 2017/09/06 15:07:30 robert Exp $ */
 
 #ifdef HAVE_CONFIG_H
 # include <config.h>
@@ -288,8 +288,8 @@ quantize_xrpow(const FLOAT * xp, int *pi, FLOAT istep, gr_info const *const cod_
     int     j = 0;
     int     prev_data_use;
     int    *iData;
-    __unused int     accumulate = 0;
-    __unused int     accumulate01 = 0;
+    int     accumulate = 0;
+    int     accumulate01 = 0;
     int    *acc_iData;
     const FLOAT *acc_xp;
 
@@ -596,7 +596,7 @@ static int count_bit_null(const int* ix, const int* end, int max, unsigned int* 
 
 typedef int (*count_fnc)(const int* ix, const int* end, int max, unsigned int* s);
   
-static count_fnc count_fncs[] = 
+static const count_fnc count_fncs[] = 
 { &count_bit_null
 , &count_bit_noESC
 , &count_bit_noESC_from2

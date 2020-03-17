@@ -2,7 +2,7 @@
  * presets.c -- Apply presets
  *
  *	Copyright (c) 2002-2008 Gabriel Bouvigne
- *	Copyright (c) 2007-2011 Robert Hegemann
+ *	Copyright (c) 2007-2012 Robert Hegemann
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -167,8 +167,8 @@ apply_vbr_preset(lame_global_flags * gfp, int a, int enforce)
     LERP(ath_fixpoint);
 
     (void) lame_set_VBR_q(gfp, set->vbr_q);
-    SET_OPTION(quant_comp, set->quant_comp, -1.0f);
-    SET_OPTION(quant_comp_short, set->quant_comp_s, -1.0f);
+    SET_OPTION(quant_comp, set->quant_comp, -1);
+    SET_OPTION(quant_comp_short, set->quant_comp_s, -1);
     if (set->expY) {
         (void) lame_set_experimentalY(gfp, set->expY);
     }
@@ -205,7 +205,11 @@ apply_vbr_preset(lame_global_flags * gfp, int a, int enforce)
         gfp->VBR_q_frac = x;
     }
     gfp->internal_flags->cfg.minval = set->minval;
-    gfp->internal_flags->cfg.ATHfixpoint = set->ath_fixpoint;
+    {   /* take care of gain adjustments */
+        double const x = fabs(gfp->scale);
+        double const y = (x > 0.f) ? (10.f * log10(x)) : 0.f;
+        gfp->internal_flags->cfg.ATHfixpoint = set->ath_fixpoint - y;
+    }
 }
 
 static int
@@ -277,8 +281,8 @@ apply_abr_preset(lame_global_flags * gfp, int preset, int enforce)
         (void) lame_set_sfscale(gfp, 1);
 
 
-    SET_OPTION(quant_comp, abr_switch_map[r].quant_comp, -1.0f);
-    SET_OPTION(quant_comp_short, abr_switch_map[r].quant_comp_s, -1.0f);
+    SET_OPTION(quant_comp, abr_switch_map[r].quant_comp, -1);
+    SET_OPTION(quant_comp_short, abr_switch_map[r].quant_comp_s, -1);
 
     SET__OPTION(msfix, abr_switch_map[r].nsmsfix, -1);
 

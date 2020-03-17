@@ -20,7 +20,7 @@
  * Boston, MA 02111-1307, USA.
  */
 
-/* $Id: VbrTag.c,v 1.103.2.1 2011/11/18 09:18:28 robert Exp $ */
+/* $Id: VbrTag.c,v 1.106 2017/08/06 18:15:47 robert Exp $ */
 
 #ifdef HAVE_CONFIG_H
 # include <config.h>
@@ -251,7 +251,7 @@ IsVbrTag(const unsigned char *buf)
     return (isTag0 || isTag1);
 }
 
-#define SHIFT_IN_BITS_VALUE(x,n,v) ( x = (x << (n)) | ( (v) & ~(-1u << (n)) ) )
+#define SHIFT_IN_BITS_VALUE(x,n,v) ( x = (x << (n)) | ( (v) & ~(-1 << (n)) ) )
 
 static void
 setLameTagFrameHeader(lame_internal_flags const *gfc, unsigned char *buffer)
@@ -427,7 +427,7 @@ GetVbrTag(VBRTAGDATA * pTagData, const unsigned char *buf)
     }
 
     if (head_flags & TOC_FLAG) {
-        if (pTagData->toc != NULL) { // docs of toc say otherwise ...
+        if (pTagData->toc != NULL) {
             for (i = 0; i < NUMTOCENTRIES; i++)
                 pTagData->toc[i] = buf[i];
         }
@@ -548,7 +548,7 @@ InitVbrTag(lame_global_flags * gfp)
     gfc->VBR_seek_table.pos = 0;
 
     if (gfc->VBR_seek_table.bag == NULL) {
-        gfc->VBR_seek_table.bag = malloc(400 * sizeof(int));
+        gfc->VBR_seek_table.bag = lame_calloc(int, 400);
         if (gfc->VBR_seek_table.bag != NULL) {
             gfc->VBR_seek_table.size = 400;
         }
@@ -902,7 +902,7 @@ lame_get_lametag_frame(lame_global_flags const *gfp, unsigned char *buffer, size
     lame_internal_flags *gfc;
     SessionConfig_t const *cfg;
     unsigned long stream_size;
-    __unused unsigned int  nStreamIndex;
+    unsigned int  nStreamIndex;
     uint8_t btToc[NUMTOCENTRIES];
 
     if (gfp == 0) {
@@ -912,7 +912,7 @@ lame_get_lametag_frame(lame_global_flags const *gfp, unsigned char *buffer, size
     if (gfc == 0) {
         return 0;
     }
-    if (gfc->class_id != LAME_ID) {
+    if (!is_lame_internal_flags_valid(gfc)) {
         return 0;
     }
     cfg = &gfc->cfg;
@@ -985,7 +985,7 @@ lame_get_lametag_frame(lame_global_flags const *gfp, unsigned char *buffer, size
 
     /* Put total audio stream size, including Xing/LAME Header */
     stream_size = gfc->VBR_seek_table.nBytesWritten + gfc->VBR_seek_table.TotalFrameSize;
-    CreateI4(&buffer[nStreamIndex], (uint32_t) stream_size);
+    CreateI4(&buffer[nStreamIndex], stream_size);
     nStreamIndex += 4;
 
     /* Put TOC */
@@ -1058,7 +1058,7 @@ PutVbrTag(lame_global_flags const *gfp, FILE * fpStream)
     id3v2TagSize = skipId3v2(fpStream);
 
     if (id3v2TagSize < 0) {
-        return (int) id3v2TagSize;
+        return id3v2TagSize;
     }
 
     /*Seek to the beginning of the stream */

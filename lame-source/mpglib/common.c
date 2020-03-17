@@ -21,7 +21,7 @@
  * Boston, MA 02111-1307, USA.
  */
 
-/* $Id: common.c,v 1.40 2010/03/22 14:30:19 robert Exp $ */
+/* $Id: common.c,v 1.42 2017/08/19 14:20:27 robert Exp $ */
 
 #ifdef HAVE_CONFIG_H
 #include <config.h>
@@ -198,9 +198,14 @@ decode_header(PMPSTR mp, struct frame *fr, unsigned long newhead)
 
 
     fr->lay = 4 - ((newhead >> 17) & 3);
+
+    if (fr->lay != 3 && fr->mpeg25) {
+        lame_report_fnc(mp->report_err, "MPEG-2.5 is supported by Layer3 only\n");
+        return 0;
+    }
     if (((newhead >> 10) & 0x3) == 0x3) {
         lame_report_fnc(mp->report_err, "Stream error\n");
-        exit(1);
+        return 0;
     }
     if (fr->mpeg25) {
         fr->sampling_frequency = 6 + ((newhead >> 10) & 0x3);
@@ -226,7 +231,7 @@ decode_header(PMPSTR mp, struct frame *fr, unsigned long newhead)
 
     switch (fr->lay) {
     case 1:
-        fr->framesize = tabsel_123[fr->lsf][0][fr->bitrate_index] * 12000;
+        fr->framesize = (long) tabsel_123[fr->lsf][0][fr->bitrate_index] * 12000;
         fr->framesize /= freqs[fr->sampling_frequency];
         fr->framesize = ((fr->framesize + fr->padding) << 2) - 4;
         fr->down_sample = 0;
@@ -234,7 +239,7 @@ decode_header(PMPSTR mp, struct frame *fr, unsigned long newhead)
         break;
 
     case 2:
-        fr->framesize = tabsel_123[fr->lsf][1][fr->bitrate_index] * 144000;
+        fr->framesize = (long) tabsel_123[fr->lsf][1][fr->bitrate_index] * 144000;
         fr->framesize /= freqs[fr->sampling_frequency];
         fr->framesize += fr->padding - 4;
         fr->down_sample = 0;
@@ -264,7 +269,7 @@ decode_header(PMPSTR mp, struct frame *fr, unsigned long newhead)
         if (fr->bitrate_index == 0)
             fr->framesize = 0;
         else {
-            fr->framesize = tabsel_123[fr->lsf][2][fr->bitrate_index] * 144000;
+            fr->framesize = (long) tabsel_123[fr->lsf][2][fr->bitrate_index] * 144000;
             fr->framesize /= freqs[fr->sampling_frequency] << (fr->lsf);
             fr->framesize = fr->framesize + fr->padding - 4;
         }
@@ -303,7 +308,7 @@ getbits(PMPSTR mp, int number_of_bits)
         mp->wordpointer += (mp->bitindex >> 3);
         mp->bitindex &= 7;
     }
-    return (unsigned int) rval;
+    return rval;
 }
 
 unsigned int
@@ -324,7 +329,7 @@ getbits_fast(PMPSTR mp, int number_of_bits)
         mp->wordpointer += (mp->bitindex >> 3);
         mp->bitindex &= 7;
     }
-    return (unsigned int) rval;
+    return rval;
 }
 
 unsigned char

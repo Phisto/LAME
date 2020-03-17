@@ -20,7 +20,7 @@
  * Boston, MA 02111-1307, USA.
  */
 
-/* $Id: vbrquantize.c,v 1.141.2.1 2012/02/07 13:40:37 robert Exp $ */
+/* $Id: vbrquantize.c,v 1.142 2012/02/07 13:36:35 robert Exp $ */
 
 #ifdef HAVE_CONFIG_H
 #  include <config.h>
@@ -1045,7 +1045,7 @@ searchGlobalStepsizeMax(const algo_t * that, const int sfwork[SFBMAX],
     const int gain = cod_info->global_gain;
     int     curr = gain;
     int     gain_ok = 1024;
-    __unused int     nbits = LARGE_BITS;
+    int     nbits = LARGE_BITS;
     int     l = gain, r = 512;
 
     assert(gain >= 0);
@@ -1157,7 +1157,7 @@ outOfBitsStrategy(algo_t const* that, const int sfwork[SFBMAX], const int vbrsfm
     int     wrk[SFBMAX];
     int const dm = sfDepth(sfwork);
     int const p = that->cod_info->global_gain;
-    __unused int     nbits;
+    int     nbits;
 
     /* PART 1 */
     {
