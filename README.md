@@ -3,9 +3,11 @@
 
 ## Overview
 
-This is a mirror of the [LAME](https://lame.sourceforge.io) 3.99.5 source and will build a dynamic framework for macOS.
+This is a mirror of the [LAME](https://lame.sourceforge.io) 3.100 source and will build a dynamic framework for macOS.
 
-It is slightly tuned to address some XCode warnings and uses the project settings recommended by XCode.
+It is slightly tuned to address some XCode warnings and uses the project settings recommended by XCode. 
+
+The framework will build with its [config file](https://github.com/Phisto/LAME/blob/master/lame-source/config.h) created on my developer machine. It should be valid for most current Apple computers, but you can create your own config file from source (run configure) an replace the provided one.
 
 
 ## Requirements
@@ -24,11 +26,10 @@ It is slightly tuned to address some XCode warnings and uses the project setting
 github "Phisto/LAME" ~> 3.0
 ```
 
-
 ### Manually
 
 If you prefer not to use Carthage, you can integrate LAME into your project manually.
-You only need to build and add the LAME framework (Lame.framework) to your project. 
+You need to build and add the LAME framework (Lame.framework) to your project yourself. 
 
 
 ## Usage
