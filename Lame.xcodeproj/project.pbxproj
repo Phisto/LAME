@@ -385,7 +385,6 @@
 				LastUpgradeCheck = 1130;
 				TargetAttributes = {
 					8D07F2BC0486CC7A007CD1D0 = {
-						DevelopmentTeam = N67G6688LK;
 						ProvisioningStyle = Automatic;
 					};
 					F44A32881D8F50BB00947705 = {
