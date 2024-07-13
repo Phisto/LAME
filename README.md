@@ -12,8 +12,8 @@ The framework will build with its [config file](https://github.com/Phisto/LAME/b
 
 ## Requirements
 
-- macOS 10.10+
-- Xcode 14.0.1+
+- macOS 10.13+
+- Xcode 15.4+
 
 
 ## Installation
